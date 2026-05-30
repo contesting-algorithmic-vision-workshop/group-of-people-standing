@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alt-Text</title>
+
+  <style>
+
+
+.site-footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  width: calc(100vw - 48px);
+  max-width: 1600px;
+  margin-left: 30px;
+  padding-right: 75px;
+
+  padding-top: 90px;
+  padding-bottom: calc(var(--teletext-h) + 70px);
+  margin-top: 90px;
+
+  border-top: 1px solid var(--line);
+}
+
+.footer-section {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.footer-section h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+  margin-bottom: 14px;
+}
+
+.footer-section p {
+  margin-bottom: 12px;
+}
+
+.footer-section a {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
+.footer-section a:hover {
+  color: var(--fg);
+}
+
+.footer-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-logos img {
+  max-width: 220px;
+  height: auto;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+
+
+    @font-face {
+      font-family: "GeneralSans";
+      src: url("./fonts/GeneralSans-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #050505;
+      --fg: #f2f2f2;
+      --muted: rgba(255,255,255,0.68);
+      --line: rgba(255,255,255,0.16);
+      --panel: rgba(255,255,255,0.04);
+      --teletext-h: 80px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+}
+
+.hero-sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  margin-left: -30px;
+  margin-right: -75px;
+  padding: 14px 30px 18px;
+
+  background: rgba(5,5,5,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+    body {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.14;
+    }
+
+    main {
+      width: calc(100vw - 48px);
+      max-width: 1600px;
+      margin-left: 30px;
+      padding-right: 75px;
+      padding-top: 0;
+      padding-bottom: calc(var(--teletext-h) + 90px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-hero {
+      position: relative;
+      left: 50%;
+      margin-left: -50vw;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #111;
+      margin-bottom: 0;
+    }
+
+    .project-hero-video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-hero-caption {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.9);
+      pointer-events: none;
+    }
+
+
+    .back-link {
+      display: inline-block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      transition: 160ms ease;
+    }
+
+    .back-link:hover {
+      color: var(--fg);
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    h1 {
+      font-family: "GeneralSans", Arial, Helvetica, sans-serif;
+      font-size: clamp(42px, 7vw, 92px);
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      max-width: 11ch;
+      margin-bottom: 28px;
+    }
+
+    .project-meta {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 18px;
+      margin-bottom: 42px;
+      padding-top: 18px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--fg);
+    }
+
+    .project-text {
+      display: grid;
+      grid-template-columns: minmax(0, 860px);
+      margin-bottom: 70px;
+    }
+
+    .project-text p {
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.45;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 22px;
+      padding-top: 18px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .section-intro {
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .image-card {
+      background: var(--panel);
+      overflow: hidden;
+    }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 220ms ease;
+    }
+
+    .image-card:hover img {
+      transform: scale(1.025);
+    }
+
+    .image-card.tall {
+      grid-column: span 4;
+      aspect-ratio: 3 / 4;
+    }
+
+    .image-card.wide {
+      grid-column: span 8;
+      aspect-ratio: 16 / 10;
+    }
+
+    .image-card.medium {
+      grid-column: span 6;
+      aspect-ratio: 4 / 3;
+    }
+
+    .image-card.small {
+      grid-column: span 4;
+      aspect-ratio: 1 / 1;
+    }
+
+    .teletext {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      height: var(--teletext-h);
+      background: rgba(0,0,0,0.92);
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 220px 1fr 160px 240px;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .teletext-cell {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-right: 1px solid var(--line);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .teletext-hashtag {
+      font-size: 22px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .teletext-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .teletext-stream {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .teletext-item {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 20px;
+      color: rgba(255,255,255,0.92);
+      will-change: left;
+      padding-right: 48px;
+    }
+
+    .teletext-date {
+      justify-content: flex-end;
+      font-size: 15px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .teletext-controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .teletext-controls input[type="range"] {
+      width: 100%;
+      accent-color: white;
+    }
+
+    .speed-display {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1100px) {
+      .project-meta,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .image-card.wide,
+      .image-card.medium,
+      .image-card.tall,
+      .image-card.small {
+        grid-column: span 6;
+      }
+
+      .teletext {
+        grid-template-columns: 180px 1fr 120px 220px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --teletext-h: 120px;
+      }
+
+      main {
+        width: calc(100vw - 20px);
+        margin-left: 10px;
+        padding-right: 10px;
+        padding-top: 0;
+      }
+
+      .project-hero {
+        height: 100vh;
+        margin-bottom: 0;
+      }
+
+      .project-hero-caption {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .hero-sticky-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 0 14px;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-card.wide,
+      .image-card.medium,
+      .image-card.tall,
+      .image-card.small {
+        grid-column: auto;
+      }
+
+      .teletext {
+        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: 28px 1fr 24px 46px;
+      }
+
+      .teletext-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 0 10px;
+        min-height: 28px;
+      }
+
+      .teletext-hashtag,
+      .teletext-item {
+        font-size: 15px;
+      }
+
+      .teletext-date {
+        justify-content: flex-start;
+        font-size: 12px;
+      }
+
+      .teletext-controls {
+        padding: 6px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-overlay"></div>
+
+  <main>
+    <section class="project-hero">
+      <video
+        class="project-hero-video"
+        src="images/header-video-alt.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+
+      <div class="project-hero-caption">
+        <span></span>
+        <span>Contesting Algorithmic Vision</span>
+      </div>
+    </section>
+
+    <div class="hero-sticky-bar">
+      <a class="back-link" href="index.html">← Back to overview</a>
+      <div class="eyebrow">Outcome 04 </div>
+    </div>
+
+    <h1>Alt-Text</h1>
+
+    <section class="project-meta">
+      <div class="meta-label">LAMAR KHAMASHTA</div>
+      <div class="meta-value">
+      
+      </div>
+    </section>
+
+    <section class="project-text">
+      <div>
+        <p>
+          
+          This project is a documentation of process and experimentation of trying to further understand instagram’s auto alt-text description on posts. We analyzed the data given focusing on posts with text overlay affecting their engagement levels both for nature and climate dataset. To deepen the research further, we experimented with instagram’s auto description ability to read different kinds of texts on posts. We also presented a possible solution for a better outcome in terms of engagement and raising awareness on climate change related posts. The whole process was documented in a designed interactive medium.
+          
+        </p>
+
+       
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="section-title">Photo documentation</div>
+        <div class="section-intro">
+                 Documentation of the process, the group dynamic, material tests, and the final presentation. 
+
+        </div>
+      </div>
+
+      <div class="image-grid">
+        <figure class="image-card wide">
+          <img src="images/alt/alt-1.webp" alt="Documentation image 1" />
+        </figure>
+
+        <figure class="image-card tall">
+          <img src="images/alt/alt-2.webp" alt="Documentation image 2" />
+        </figure>
+
+        <figure class="image-card small">
+          <img src="images/alt/alt-3.webp" alt="Documentation image 3" />
+        </figure>
+
+        <figure class="image-card medium">
+          <img src="images/alt/alt-4.webp" alt="Documentation image 4" />
+        </figure>
+
+        <figure class="image-card medium">
+          <img src="images/alt/alt-5.webp" alt="Documentation image 5" />
+        </figure>
+
+        <figure class="image-card small">
+          <img src="images/alt/alt-6.webp" alt="Documentation image 6" />
+        </figure>
+
+        <figure class="image-card wide">
+          <img src="images/alt/alt-7.webp" alt="Documentation image 7" />
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+  <section class="footer-section">
+    <h3>Persons</h3>
+    <p>The workshop was initiated by Dr. Hagit Keysar.</p>
+    <p>Workshop facilitators: Robin Coenen &amp; Anat Ben-David</p>
+    <p>Faculty: Ron Arad, Meir Sadan, Assaf Arad, Michal Hargev, Roy Amit</p>
+  </section>
+
+  <section class="footer-section">
+    <h3>Students</h3>
+    <p>
+      Bauch Romy, Ben Dror Daria, Grinbank Hadar, Zoabi Basel, Khamashta Lamar,
+      Luz Halevi Inbal Mazal, Moushailov Nicole, Matsil Yuval, Roni Levit,
+      Noya Antman Ron, Maya Netzer, Sara Kopelman, Noa Turgeman
+    </p>
+  </section>
+
+  <section class="footer-section">
+    <h3>Projects</h3>
+    <a href="alt-text.html">Alt-Text</a>
+    <a href="climate-tags.html">Climate Tags</a>
+    <a href="perfect-post.html">The Perfect Post</a>
+    <a href="hue-of-crisis.html">Hue of Crisis</a>
+  </section>
+
+  <section class="footer-section footer-logos">
+    <img src="footer-assets/goethe-logo.jpg" alt="Goethe Institut logo">
+    <img class="bezalel-logo" src="footer-assets/bezalel-mdes-logo.png" alt="Bezalel logo">
+  </section>
+</footer>
+
+  <div class="teletext" aria-live="polite">
+    <div class="teletext-cell teletext-hashtag" id="teleHashtag">loading</div>
+
+    <div class="teletext-cell">
+      <div class="teletext-track" id="teleTrack">
+        <div class="teletext-stream" id="teleStream"></div>
+      </div>
+    </div>
+
+    <div class="teletext-cell teletext-date" id="teleDate">—</div>
+
+    <div class="teletext-cell">
+      <div class="teletext-controls">
+        <input id="speedSlider" type="range" min="120" max="2500" step="20" value="900" />
+        <div class="speed-display"><span id="speedValue">900</span> ms</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      csvPath: "bg-data.csv"
+    };
+
+    const state = {
+      rows: [],
+      rowIndex: 0,
+      timer: null,
+      speed: 900,
+      tickerRAF: null,
+      tickerItems: []
+    };
+
+    const els = {
+      teleHashtag: document.getElementById("teleHashtag"),
+      teleTrack: document.getElementById("teleTrack"),
+      teleStream: document.getElementById("teleStream"),
+      teleDate: document.getElementById("teleDate"),
+      speedSlider: document.getElementById("speedSlider"),
+      speedValue: document.getElementById("speedValue")
+    };
+
+    init();
+
+    async function init() {
+      bindControls();
+      startTicker();
+      const rows = await loadCsvRows();
+      state.rows = rows;
+      startPlayback();
+    }
+
+    function bindControls() {
+      els.speedSlider.addEventListener("input", (e) => {
+        state.speed = Number(e.target.value);
+        els.speedValue.textContent = state.speed;
+        restartPlayback();
+      });
+    }
+
+    async function loadCsvRows() {
+      const res = await fetch(CONFIG.csvPath);
+      if (!res.ok) {
+        throw new Error(`CSV not found: ${CONFIG.csvPath}`);
+      }
+      const text = await res.text();
+      return parseCsv(text);
+    }
+
+    function parseCsv(text) {
+      text = text.replace(/^\uFEFF/, "");
+
+      const firstLine = text.split(/\r\n|\n|\r/)[0] || "";
+      const delimiter = detectDelimiter(firstLine);
+
+      const rows = [];
+      let current = "";
+      let row = [];
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+          continue;
+        }
+
+        if (char === delimiter && !inQuotes) {
+          row.push(current);
+          current = "";
+          continue;
+        }
+
+        if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(current);
+
+          if (row.some(cell => cell.trim() !== "")) {
+            rows.push(row);
+          }
+
+          row = [];
+          current = "";
+          continue;
+        }
+
+        current += char;
+      }
+
+      if (current.length || row.length) {
+        row.push(current);
+        rows.push(row);
+      }
+
+      const [header, ...data] = rows;
+      if (!header) return [];
+
+      return data
+        .map(cols => {
+          const obj = {};
+          header.forEach((h, i) => {
+            obj[h.trim()] = (cols[i] || "").trim();
+          });
+          return obj;
+        })
+        .filter(row => Object.values(row).some(v => v !== ""));
+    }
+
+    function detectDelimiter(line) {
+      const candidates = [",", ";", "\t"];
+      let best = ",";
+      let bestCount = -1;
+
+      for (const candidate of candidates) {
+        const count = line.split(candidate).length;
+        if (count > bestCount) {
+          bestCount = count;
+          best = candidate;
+        }
+      }
+
+      return best;
+    }
+
+    function startPlayback() {
+      if (!state.rows.length) return;
+      stepPlayback();
+      state.timer = setInterval(stepPlayback, state.speed);
+    }
+
+    function restartPlayback() {
+      clearInterval(state.timer);
+      state.timer = setInterval(stepPlayback, state.speed);
+    }
+
+    function stepPlayback() {
+      const row = state.rows[state.rowIndex % state.rows.length];
+      updateTelemetry(row);
+      state.rowIndex = (state.rowIndex + 1) % state.rows.length;
+    }
+
+    function updateTelemetry(row) {
+      const hashtag = (row.parent_hashtag || "untitled").trim();
+      const altText = (
+        row.Instagram_auto_desc ||
+        row.instagram_auto_desc ||
+        row.alt_text ||
+        ""
+      ).replace(/\s+/g, " ").trim();
+      const date = row.post_date || "—";
+
+      els.teleHashtag.textContent = hashtag;
+      els.teleDate.textContent = date;
+
+      pushTeletextItem(altText || "No alt text available.");
+    }
+
+    function startTicker() {
+      cancelAnimationFrame(state.tickerRAF);
+
+      function animate() {
+        const speedPxPerFrame = mapSpeedToPixels();
+
+        state.tickerItems.forEach(item => {
+          item.x -= speedPxPerFrame;
+          item.el.style.left = `${item.x}px`;
+        });
+
+        state.tickerItems = state.tickerItems.filter(item => {
+          const stillVisible = item.x + item.width > 0;
+          if (!stillVisible) item.el.remove();
+          return stillVisible;
+        });
+
+        state.tickerRAF = requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    function pushTeletextItem(text) {
+      const cleanText = (text || "No alt text available.").trim();
+
+      const item = document.createElement("div");
+      item.className = "teletext-item";
+      item.textContent = cleanText;
+      item.style.left = `${els.teleTrack.offsetWidth}px`;
+
+      els.teleStream.appendChild(item);
+
+      const trackWidth = els.teleTrack.offsetWidth;
+      const lastItem = state.tickerItems[state.tickerItems.length - 1];
+
+      let startX = trackWidth;
+      if (lastItem) {
+        const gap = 60;
+        startX = Math.max(trackWidth, lastItem.x + lastItem.width + gap);
+      }
+
+      const width = item.offsetWidth;
+      item.style.left = `${startX}px`;
+
+      state.tickerItems.push({
+        el: item,
+        x: startX,
+        width
+      });
+    }
+
+    function mapSpeedToPixels() {
+      const minSlider = 120;
+      const maxSlider = 2500;
+      const minPx = 0.6;
+      const maxPx = 3.5;
+
+      const t = (state.speed - minSlider) / (maxSlider - minSlider);
+      return maxPx - t * (maxPx - minPx);
+    }
+  </script>
+</body>
+</html>

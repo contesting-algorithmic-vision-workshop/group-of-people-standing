@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+
+  <style>
+    .footer-logos .bezalel-logo {
+  max-width: 450px;
+}
+
+.site-footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 90px 0 calc(var(--teletext-h) + 70px);
+  margin-top: 90px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-section {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.footer-section h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+  margin-bottom: 14px;
+}
+
+.footer-section p {
+  margin-bottom: 12px;
+}
+
+.footer-section a {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
+.footer-section a:hover {
+  color: var(--fg);
+}
+
+.footer-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-logos img {
+  max-width: 220px;
+  height: auto;
+  background: white;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+
+
+    :root {
+      --bg: #050505;
+      --fg: #f2f2f2;
+      --muted: rgba(255,255,255,0.68);
+      --line: rgba(255,255,255,0.16);
+      --teletext-h: 80px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: clip;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    main {
+      width: calc(100vw - 48px);
+      max-width: 1600px;
+      margin-left: 30px;
+      padding-right: 75px;
+      padding-top: 30px;
+      padding-bottom: calc(var(--teletext-h) + 90px);
+    }
+
+    .hero-sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-left: -30px;
+      margin-right: -75px;
+      padding: 14px 30px 18px;
+      background: rgba(5,5,5,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .back-link,
+    .eyebrow,
+    .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-size: clamp(54px, 8vw, 120px);
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+      max-width: 10ch;
+      margin: 70px 0;
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      padding: 50px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .text {
+      max-width: 900px;
+      font-size: clamp(18px, 2vw, 26px);
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .person h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .person p,
+    .names {
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .video-wrap {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      max-width: 1100px;
+      background: #111;
+    }
+
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .invitation {
+      max-width: 900px;
+      width: 100%;
+      height: auto;
+      display: block;
+      background: white;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        width: calc(100vw - 20px);
+        margin-left: 10px;
+        padding-right: 10px;
+      }
+
+      .hero-sticky-bar {
+        margin-left: -10px;
+        margin-right: -10px;
+        padding: 10px;
+      }
+
+      .section,
+      .people-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="hero-sticky-bar">
+      <a class="back-link" href="index.html">← Back to overview</a>
+      <div class="eyebrow">About the workshop</div>
+    </div>
+
+    <h1>About</h1>
+
+    <section class="section">
+      <div class="label">Workshop</div>
+      <div class="text">
+        <h3>[A Group of People Standing] </br>Contesting Algorithmic Vision </h3> </br> 
+A group of people standing is a generic alt-text description on Instagram, based on AI, designed for accessibility. The starting point of the workshop is that today image circulation depends less on human emotions and meanings, and more on machine vision mechanisms that tag, classify and rank visual content. However, describing what appears in an image is an interpretive act that is inherently unstable and often contested. Research by Prof. Anat Ben-David and Noa Turgeman found that Instagram's algorithmic alt-text consistently flattens cultural, social and political meanings for optimization and safety, avoiding controversy and maintaining neutrality.
+What are the social and political implications of algorithmic image interpretation? How do these invisible mechanisms shape collective imagination and understanding of political and climate crises? Beyond that - what are the broader implications of these mechanisms in the development of artificial intelligence, when algorithmic alt-text is fed into language models and in a feedback process reshapes our knowledge and interpretation of reality?
+This workshop seeks to create a synthesis between theoretical research and communication design, establishing visual knowledge design as methodology for understanding invisible mechanisms, developing visual critique, and promoting digital literacy. It is organized by the M.Des program in Visual Communication, Bezalel Academy of Art and Design Jerusalem and held in collaboration with the Goethe Institute's residency program.
+      </div>
+    </section>
+
+        <section class="section">
+      <div class="label">Data</div>
+      <div class="people-grid">
+        <div class="person">
+          <p> Donated from research conducted by Prof. Anat Ben David and Noa Turgeman (PhD candidate):
+            Instagram corpus - hundreds of nature/climate images examining visibility patterns and machine vision descriptions. 
+Climate corpus - 190,000 images from news sites in 30 countries (2010-2022) tracking visual framing evolution
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="label">Initiator</div>
+      <div class="people-grid">
+        <div class="person">
+          <h3>Dr. Hagit Keysar</h3>
+          <p>The workshop was initiated by Dr. Hagit Keysar, head of the M.Des Program in Visual Communication, Bezalel Academy of Art and Design Jerusalem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Workshop leaders</div>
+      <div class="people-grid">
+        <div class="person">
+          <h3>Prof. Anat Ben-David <br>(Open University)</h3>
+          <p>Digital communication researcher specializing in internet history and geopolitics, social media, and computational digital methodologies.</p>
+        </div>
+
+        <div class="person">
+          <h3>Robin Coenen <br> (University of the Arts Berlin, UDK)</h3>
+          <p>Information designer working with science, technology and visual anthropology, founder of visual intelligence, studio for informationdesign and a computer vision startup connecting design and ai</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Faculty</div>
+      <div class="names">
+        Roni Levit<br>
+        Meir Sadan<br>
+        Assaf Arad<br>
+        Michal Hargev<br>
+        Roy Amit
+      </div>
+ 
+    </section>
+
+
+    <section class="section">
+      <div class="label">Research facilitators</div>
+      <div class="names">
+        Sara Kopelman<br>
+        Noa Turgeman<br>
+      </div>
+    </section>
+
+        <section class="section">
+      <div class="label"> Workshop coordination and program design</div>
+      <div class="names">
+        Noya Antman Ron<br>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Students</div>
+      <div class="names">
+        Bauch Romy<br>
+        Ben Dror Daria<br>
+        Grinbank Hadar<br>
+        Zoabi Basel<br>
+        Khamashta Lamar<br>
+        Luz Halevi Inbal Mazal<br>
+        Moushailov Nicole<br>
+        Matsil Yuval<br>
+        Maya Netzer<br>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Video</div>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/voJ0TbUnVzc"
+          title="Workshop video"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="label">Invitation</div>
+      <img class="invitation" src="images/invitation.jpg" alt="Seeing Otherwise invitation">
+    </section>
+
+
+<footer class="site-footer">
+  <section class="footer-section">
+    <h3>Persons</h3>
+    <p>The workshop was initiated by Dr. Hagit Keysar, Head of the M.Des Program in Visual Communication, Bezalel Academy of Art and Design Jerusalem.</p>
+    <p>Workshop Leaders: Robin Coenen (University of the Arts, Berlin), prof. Anat Ben David (Open University of Israel)/p>
+    <p>Faculty: Roni Levit, Meir Sadan, Assaf Arad, Michal Hargev, Roy Amit</p>
+    <p>Research facilitators: Sara Kopelman, Noa Turgeman</p>
+    <p>Workshop coordination and program design: Noya Antman Ron</p>
+
+  </section>
+
+  <section class="footer-section">
+    <h3>Students</h3>
+    <p>
+      Bauch Romy, Ben Dror Daria, Grinbank Hadar, Zoabi Basel, Khamashta Lamar,
+      Luz Halevi Inbal Mazal, Moushailov Nicole, Matsil Yuval, Maya Netzer
+    </p>
+  </section>
+
+  <section class="footer-section">
+    <h3>Projects</h3>
+    <a href="alt-text.html">Alt-Text</a>
+    <a href="climate-tags.html">Climate Tags</a>
+    <a href="perfect-post.html">The Perfect Post</a>
+    <a href="hue-of-crisis.html">Hue of Crisis</a>
+  </section>
+
+  <section class="footer-section footer-logos">
+    <img class="bezalel-logo" src="footer-assets/bezalel-mdes-logo.png" alt="Bezalel logo">
+    <img src="footer-assets/goethe-logo.jpg" alt="Goethe Institut logo">
+  </section>
+</footer>
+
+
+  </main>
+</body>
+</html>
