@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Website</title>
+
+  <style>
+    @font-face {
+      font-family: "GeneralSans";
+      src: url("./fonts/GeneralSans-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .footer-logos .bezalel-logo {
+  max-width: 490px;
+}
+
+    :root {
+      --bg: #050505;
+      --fg: #f2f2f2;
+      --muted: rgba(255,255,255,0.65);
+      --line: rgba(255,255,255,0.16);
+      --panel: rgba(255,255,255,0.05);
+      --teletext-h: 80px;
+      --accent: #8cff66;
+      --circle-size: 50px;
+      --circle-color: #8cff66;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+main {
+    width: calc(100vw - 48px);
+    max-width: 1600px;
+    margin-left: 30px;
+    padding-right: 75px;
+    padding-top: 50px;
+    /* padding: 24px 0 calc(var(--teletext-h) + 110px); */
+    position: relative;
+    z-index: 2;
+}
+
+
+.site-footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 90px 0 calc(var(--teletext-h) + 10px);
+  margin-top: 90px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-section {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.footer-section h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+  margin-bottom: 14px;
+}
+
+.footer-section p {
+  margin-bottom: 12px;
+}
+
+.footer-section a {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
+.footer-section a:hover {
+  color: var(--fg);
+}
+
+.footer-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-logos img {
+  max-width: 220px;
+  height: auto;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.14;
+    }
+
+    .pulse {
+    position: fixed;
+    top: 10px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    z-index: 10;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+}
+
+    .pulse-core,
+    .pulse-ring {
+      position: absolute;
+      border-radius: 999px;
+      background: var(--circle-color);
+      transition: 180ms linear;
+    }
+
+    .pulse-core {
+      width: var(--circle-size);
+      height: var(--circle-size);
+      opacity: 0.9;
+      animation: breathe 2s ease-in-out infinite;
+      box-shadow: 0 0 40px rgba(255,255,255,0.12);
+    }
+
+    .pulse-ring {
+      width: calc(var(--circle-size) * 1.45);
+      height: calc(var(--circle-size) * 1.45);
+      opacity: 0.18;
+      animation: ping 2s ease-out infinite;
+      filter: blur(3px);
+    }
+
+.pulse-label {
+    position: absolute;
+    bottom: 10px;
+    width: 200px;
+    left: 70px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);}
+
+    .histogram {
+      position: fixed;
+      top: 5px;
+      right: 5px;
+      width: 75px;
+      background: rgba(0,0,0,0.72);
+      /* border: 1px solid var(--line); */
+      padding: 14px;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .histogram-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .bars {
+      min-height: 180px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(34px, 1fr));
+      gap: 8px;
+      align-items: end;
+    }
+
+    .bar-col {
+      display: grid;
+      gap: 6px;
+      align-items: end;
+      justify-items: center;
+    }
+
+    .bar {
+      width: 100%;
+      min-height: 2px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.18));
+      /* border: 1px solid rgba(255,255,255,0.16); */
+      transition: height 120ms linear;
+    }
+
+    .bar-year,
+    .bar-value {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    header {
+      min-height: 100vh;
+      display: grid;
+      align-content: start;
+      gap: 28px;
+      padding-top: 20px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-family: "GeneralSans", Arial, Helvetica, sans-serif;
+      font-size: clamp(58px, 8vw, 110px);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .stats{
+      display: none !important;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 2fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+.hero-visual {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+
+  aspect-ratio: 4 / 3;   /* lock to 4:3 */
+  height: auto;
+
+  /* border: 1px solid var(--line); */
+  overflow: hidden;
+  background: #111;
+  cursor: ew-resize;
+}
+
+#heroCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15), transparent 30%, transparent 70%, rgba(0,0,0,0.45));
+      pointer-events: none;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .hero-caption {
+      max-width: 42ch;
+      font-size: 14px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .panel {
+      /* border: 1px solid var(--line); */
+     /*  background: var(--panel);*/
+      padding: 18px;
+    }
+
+    .panel p {
+      color: white;
+      font-size: clamp(16px, 1.8vw, 20px);
+      line-height: 1.4;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      padding: 14px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .section {
+      padding-top: 80px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-family: "GeneralSans", Arial, Helvetica, sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      display: grid;
+      gap: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      padding: 14px;
+      transition: 180ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.34);
+    }
+
+    .card-media {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-index,
+    .card-subtitle {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .card-title {
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .card-description {
+      color: white;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .teletext {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      height: var(--teletext-h);
+      background: rgba(0,0,0,0.92);
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 220px 1fr 160px 240px;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .teletext-cell {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-right: 1px solid var(--line);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .teletext-hashtag {
+      font-size: 22px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .teletext-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .teletext-stream {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .teletext-item {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 20px;
+      color: rgba(255,255,255,0.92);
+      will-change: left;
+      padding-right: 48px;
+    }
+
+    .teletext-date {
+      justify-content: flex-end;
+      font-size: 15px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .teletext-controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .teletext-controls input[type="range"] {
+      width: 100%;
+      accent-color: white;
+    }
+
+    .speed-display {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    @keyframes ping {
+      0% { transform: scale(0.8); opacity: 0.25; }
+      75% { transform: scale(1.18); opacity: 0.02; }
+      100% { transform: scale(1.24); opacity: 0; }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.96); }
+      50% { transform: scale(1.03); }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .section-head,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .teletext {
+        grid-template-columns: 180px 1fr 120px 220px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --teletext-h: 120px;
+      }
+
+      main {
+        width: calc(100vw - 20px);
+      }
+
+      .histogram {
+        width: calc(100vw - 24px);
+        right: 12px;
+        top: 12px;
+      }
+
+      .pulse {
+        top: auto;
+        bottom: calc(var(--teletext-h) + 170px);
+        left: 12px;
+        width: 120px;
+        height: 120px;
+      }
+
+      .teletext {
+        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: 28px 1fr 24px 46px;
+      }
+
+      .teletext-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 0 10px;
+        min-height: 28px;
+      }
+
+      .teletext-hashtag,
+      .teletext-item {
+        font-size: 15px;
+      }
+
+      .teletext-date {
+        justify-content: flex-start;
+        font-size: 12px;
+      }
+
+      .teletext-controls {
+        padding: 6px 0;
+      }
+
+
+
+    }
+
+    .about-button {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg);
+  transition: 160ms ease;
+}
+
+.about-button:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+  </style>
+</head>
+<body>
+  <div class="grid-overlay"></div>
+
+  <div class="pulse" aria-hidden="true">
+    <div class="pulse-ring"></div>
+    <div class="pulse-core"></div>
+    <div class="pulse-label" id="pulseLabel">current hashtag / idle</div>
+  </div>
+
+  <aside class="histogram">
+    <div class="histogram-head">
+      <span id="rowCounter">0 / 0</span>
+    </div>
+    <div class="bars" id="bars"></div>
+  </aside>
+
+  <main>
+    <header>
+
+      <div class="hero-grid">
+        <div>
+          <h1>A Group of People Standing</h1>
+        </div>
+
+        <div id="statspanel">
+          <div class="panel">
+            <p>
+              Workshop: Contesting Algorithmic Vision </br>
+              November/December 2025 </br></br>
+              A Group of People Standing explores how Instagram’s AI-generated alt-text classifies images, often flattening cultural, political, and emotional meaning into neutral machine-readable descriptions. The workshop connects research and communication design to question how algorithmic image interpretation shapes visibility, climate narratives, and our understanding of reality.
+            </p>
+            <a class="about-button" href="about.html">Read more</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-label">Date</div>
+              <div class="stat-value">November/December 2025</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Sample Datapoints</div>
+              <div class="stat-value" id="statRows">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Current hashtag</div>
+              <div class="stat-value" id="statHashtag">—</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Current year</div>
+              <div class="stat-value" id="statYear">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <canvas id="heroCanvas"></canvas>
+
+        <div class="hero-overlay">
+          <div class="hero-meta">
+            <span></span>
+            <span id="heroState"></span>
+          </div>
+          <div class="hero-caption">
+            
+          </div>
+        </div>
+      </div>
+    </header>
+
+    
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Workshop Results</h2>
+        <div class="panel">
+          <p>
+           These projects explore how climate discourse is shaped by both human communication and algorithmic systems. From hashtags and posting strategies to large-scale image analysis, they reveal how platforms classify, filter, and frame climate content. Together, the works expose the invisible mechanisms behind digital visibility and offer a critical perspective on how climate narratives are constructed today.
+          </p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <a class="card" href="climate-tags.html">
+          <div class="card-media">
+            <img src="images/header-1.webp" alt="Projekt 1" />
+          </div>
+          <div class="card-index">RONI LEVIT, OMER ELIRAZ, RON PORAT, DARIA BEN DROR</div>
+          <div class="card-title">Climate Tags</div>
+          <div class="card-subtitle">Identifying the key associations surrounding climate-related discourse on social platforms</div>
+          <div class="card-description">
+This project examines the secondary tags used in social media posts that include the climate hashtag. The aim is to identify key associations surrounding climate-related discourse on social platforms. To communicate these findings, a series of infographic posters was designed, each highlighting a distinct trend revealed by the data.          </div>
+        </a>
+
+        <a class="card" href="perfect-post.html">
+          <div class="card-media">
+            <img src="images/header-2.webp" alt="Projekt 2" />
+          </div>
+          <div class="card-index">MEIR SADAN, HADAR GRINBAK, YUVAL MATSIL, INBAL LUZ, ROY AMIT</div>
+          <div class="card-title">The Perfect Post</div>
+          <div class="card-subtitle">A Guidebook for Instagram Climate Activists</div>
+          <div class="card-description">
+            This guide started from a simple question: what makes a <> climate post actually work?
+Step by step, it broke the post into its parts - * image, timing, *e hashtags and captionand looked at how each one behaves in real #climate and #nature feeds.
+          </div>
+        </a>
+
+        <a class="card" href="hue-of-crisis.html">
+          <div class="card-media">
+            <img src="images/header-3.webp" alt="Projekt 3" />
+          </div>
+          <div class="card-index">NICOLE MATSIL YUVAL, MICHAL HARGEV, NOYA ANTMAN RON, ROMI BAUCH, OMRI BERGMAN</div>
+          <div class="card-title">Hue of Crisis</div>
+          <div class="card-subtitle">A Group of People Standing Workshop Project</div>
+          <div class="card-description">
+           Hue of Crisis examines how the climate crisis is represented in images from online news media. Based on an extensive dataset of climate-related visuals, the project analyzes patterns across color, time, location, and image content.
+An interactive interface enables filtering and exploration of the data, allowing both an overview of broader trends and close inspection of individual images. Through this approach, the project reveals visual patterns and underlying structures in how climate narratives are constructed and communicated.
+          </div>
+        </a>
+
+
+        <a class="card" href="alt-text.html">
+  <div class="card-media">
+    <img src="images/header-4.webp" alt="Project 4" />
+  </div>
+  <div class="card-index">LAMAR KHAMASHTA</div>
+  <div class="card-title">Alt-text</div>
+  <div class="card-subtitle">Experimenting with Instagram’s Auto Alt-Text and Climate Engagement</div>
+  <div class="card-description">
+    This project investigates how Instagram’s auto alt-text interprets posts related to climate and nature, focusing on the impact of text overlays on engagement. Through data analysis and visual experimentation, it explores how algorithmic image descriptions shape visibility, communication, and awareness around climate content.
+  </div>
+</a>
+      </div>
+    </section>
+
+<footer class="site-footer">
+  <section class="footer-section">
+    <h3>Persons</h3>
+    <p>The workshop was initiated by Dr. Hagit Keysar, Head of the M.Des Program in Visual Communication, Bezalel Academy of Art and Design Jerusalem.</p>
+    <p>Workshop Leaders: Robin Coenen (University of the Arts, Berlin), prof. Anat Ben David (Open University of Israel)/p>
+    <p>Faculty: Roni Levit, Meir Sadan, Assaf Arad, Michal Hargev, Roy Amit</p>
+    <p>Research facilitators: Sara Kopelman, Noa Turgeman</p>
+    <p>Workshop coordination and program design: Noya Antman Ron</p>
+
+  </section>
+
+  <section class="footer-section">
+    <h3>Students</h3>
+    <p>
+      Bauch Romy, Ben Dror Daria, Grinbank Hadar, Zoabi Basel, Khamashta Lamar,
+      Luz Halevi Inbal Mazal, Moushailov Nicole, Matsil Yuval, Maya Netzer
+    </p>
+  </section>
+
+  <section class="footer-section">
+    <h3>Projects</h3>
+    <a href="alt-text.html">Alt-Text</a>
+    <a href="climate-tags.html">Climate Tags</a>
+    <a href="perfect-post.html">The Perfect Post</a>
+    <a href="hue-of-crisis.html">Hue of Crisis</a>
+  </section>
+
+  <section class="footer-section footer-logos">
+    <img class="bezalel-logo" src="footer-assets/bezalel-mdes-logo.png" alt="Bezalel logo">
+    <img src="footer-assets/goethe-logo.jpg" alt="Goethe Institut logo">
+  </section>
+</footer>
+
+
+
+
+  </main>
+
+  <div class="teletext" aria-live="polite">
+    <div class="teletext-cell teletext-hashtag" id="teleHashtag">loading</div>
+
+    <div class="teletext-cell">
+      <div class="teletext-track" id="teleTrack">
+        <div class="teletext-stream" id="teleStream"></div>
+      </div>
+    </div>
+
+    <div class="teletext-cell teletext-date" id="teleDate">—</div>
+
+    <div class="teletext-cell">
+      <div class="teletext-controls">
+        <input id="speedSlider" type="range" min="120" max="2500" step="20" value="900" />
+        <div class="speed-display"><span id="speedValue">900</span> ms</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="spacer"></div>
+  <style>
+
+    #spacer {
+      margin-bottom: 50vh;
+
+    }
+  </style>
+
+  <script>
+    const CONFIG = {
+      csvPath: "bg-data.csv",
+      heroImages: [
+                "images/header-1.webp",
+                "images/header-3.webp",
+                "images/header-2.webp",
+                "images/header-4.webp"
+      ],
+      hashtagStyles: {
+        climate: { color: "#7CFF6B", size: 50 },
+        water:   { color: "#6BCBFF", size: 50 },
+        labor:   { color: "#FFD56B", size: 50 },
+        soil:    { color: "#C9925B", size: 50 },
+        default: { color: "#F2F2F2", size: 50 }
+      }
+    };
+
+    const state = {
+      rows: [],
+      rowIndex: 0,
+      timer: null,
+      speed: 900,
+      countsByYear: {},
+      years: [],
+      tickerRAF: null,
+      tickerItems: [],
+      hero: null
+    };
+
+    const els = {
+      teleHashtag: document.getElementById("teleHashtag"),
+      teleTrack: document.getElementById("teleTrack"),
+      teleStream: document.getElementById("teleStream"),
+      teleDate: document.getElementById("teleDate"),
+      bars: document.getElementById("bars"),
+      speedSlider: document.getElementById("speedSlider"),
+      speedValue: document.getElementById("speedValue"),
+      rowCounter: document.getElementById("rowCounter"),
+      pulseLabel: document.getElementById("pulseLabel"),
+      statRows: document.getElementById("statRows"),
+      statHashtag: document.getElementById("statHashtag"),
+      statYear: document.getElementById("statYear"),
+      heroVisual: document.getElementById("heroVisual"),
+      heroCanvas: document.getElementById("heroCanvas"),
+      heroState: document.getElementById("heroState")
+    };
+
+    init();
+
+    async function init() {
+      bindControls();
+      startTicker();
+      await initHeroShader();
+      const rows = await loadCsvRows();
+      console.log(rows[0]);
+      console.log(Object.keys(rows[0] || {}));
+      state.rows = rows;
+      els.statRows.textContent = rows.length;
+      prepareYears(rows);
+      renderBars();
+      startPlayback();
+    }
+
+    function bindControls() {
+      els.speedSlider.addEventListener("input", (e) => {
+        state.speed = Number(e.target.value);
+        els.speedValue.textContent = state.speed;
+        restartPlayback();
+      });
+    }
+
+    async function loadCsvRows() {
+      const res = await fetch(CONFIG.csvPath);
+      if (!res.ok) {
+        throw new Error(`CSV not found: ${CONFIG.csvPath}`);
+      }
+      const text = await res.text();
+      return parseCsv(text);
+    }
+
+    function parseCsv(text) {
+      text = text.replace(/^\uFEFF/, "");
+
+      const firstLine = text.split(/\r\n|\n|\r/)[0] || "";
+      const delimiter = detectDelimiter(firstLine);
+
+      const rows = [];
+      let current = "";
+      let row = [];
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"') {
+          if (inQuotes && next === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+          continue;
+        }
+
+        if (char === delimiter && !inQuotes) {
+          row.push(current);
+          current = "";
+          continue;
+        }
+
+        if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(current);
+
+          if (row.some(cell => cell.trim() !== "")) {
+            rows.push(row);
+          }
+
+          row = [];
+          current = "";
+          continue;
+        }
+
+        current += char;
+      }
+
+      if (current.length || row.length) {
+        row.push(current);
+        rows.push(row);
+      }
+
+      const [header, ...data] = rows;
+      if (!header) return [];
+
+      return data
+        .map(cols => {
+          const obj = {};
+          header.forEach((h, i) => {
+            obj[h.trim()] = (cols[i] || "").trim();
+          });
+          return obj;
+        })
+        .filter(row => Object.values(row).some(v => v !== ""));
+    }
+
+    function detectDelimiter(line) {
+      const candidates = [",", ";", "\t"];
+      let best = ",";
+      let bestCount = -1;
+
+      for (const candidate of candidates) {
+        const count = line.split(candidate).length;
+        if (count > bestCount) {
+          bestCount = count;
+          best = candidate;
+        }
+      }
+
+      return best;
+    }
+
+    function prepareYears(rows) {
+      const years = new Set();
+      rows.forEach(row => {
+        const year = extractYear(row.post_date);
+        if (year) years.add(year);
+      });
+
+      state.years = Array.from(years).sort();
+      state.countsByYear = Object.fromEntries(state.years.map(year => [year, 0]));
+    }
+
+    function extractYear(dateString) {
+      const match = String(dateString || "").match(/\b(19|20)\d{2}\b/);
+      return match ? match[0] : null;
+    }
+
+    function startPlayback() {
+      if (!state.rows.length) return;
+      stepPlayback();
+      state.timer = setInterval(stepPlayback, state.speed);
+    }
+
+    function restartPlayback() {
+      clearInterval(state.timer);
+      state.timer = setInterval(stepPlayback, state.speed);
+    }
+
+    function stepPlayback() {
+      const row = state.rows[state.rowIndex % state.rows.length];
+      updateTelemetry(row, state.rowIndex);
+      state.rowIndex = (state.rowIndex + 1) % state.rows.length;
+    }
+
+    function updateTelemetry(row, index) {
+      const hashtag = (row.parent_hashtag || "untitled").trim();
+      const altText = (
+        row.Instagram_auto_desc ||
+        row.instagram_auto_desc ||
+        row.alt_text ||
+        ""
+      ).replace(/\s+/g, " ").trim();
+      const date = row.post_date || "—";
+      const year = extractYear(date);
+
+      els.teleHashtag.textContent = hashtag;
+      els.teleDate.textContent = date;
+      els.statHashtag.textContent = hashtag;
+      els.statYear.textContent = year || "—";
+      els.rowCounter.textContent = `${index + 1} / ${state.rows.length}`;
+      els.pulseLabel.textContent = `current hashtag / ${hashtag}`;
+
+      pushTeletextItem(altText || "No alt text available.");
+      updatePulse(hashtag);
+
+      if (year && state.countsByYear[year] !== undefined) {
+        state.countsByYear[year] += 1;
+        renderBars();
+      }
+    }
+
+    function startTicker() {
+      cancelAnimationFrame(state.tickerRAF);
+
+      function animate() {
+        const speedPxPerFrame = mapSpeedToPixels();
+
+        state.tickerItems.forEach(item => {
+          item.x -= speedPxPerFrame;
+          item.el.style.left = `${item.x}px`;
+        });
+
+        state.tickerItems = state.tickerItems.filter(item => {
+          const stillVisible = item.x + item.width > 0;
+          if (!stillVisible) item.el.remove();
+          return stillVisible;
+        });
+
+        state.tickerRAF = requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    function pushTeletextItem(text) {
+      const cleanText = (text || "No alt text available.").trim();
+
+      const item = document.createElement("div");
+      item.className = "teletext-item";
+      item.textContent = cleanText;
+      item.style.left = `${els.teleTrack.offsetWidth}px`;
+
+      els.teleStream.appendChild(item);
+
+      const trackWidth = els.teleTrack.offsetWidth;
+      const lastItem = state.tickerItems[state.tickerItems.length - 1];
+
+      let startX = trackWidth;
+      if (lastItem) {
+        const gap = 60;
+        startX = Math.max(trackWidth, lastItem.x + lastItem.width + gap);
+      }
+
+      const width = item.offsetWidth;
+      item.style.left = `${startX}px`;
+
+      state.tickerItems.push({
+        el: item,
+        x: startX,
+        width
+      });
+    }
+
+    function mapSpeedToPixels() {
+      const minSlider = 120;
+      const maxSlider = 2500;
+      const minPx = 0.6;
+      const maxPx = 3.5;
+
+      const t = (state.speed - minSlider) / (maxSlider - minSlider);
+      return maxPx - t * (maxPx - minPx);
+    }
+
+    function updatePulse(hashtagRaw) {
+      const hashtag = String(hashtagRaw || "").toLowerCase();
+      const style = CONFIG.hashtagStyles[hashtag] || CONFIG.hashtagStyles.default;
+      document.documentElement.style.setProperty("--circle-color", style.color);
+      document.documentElement.style.setProperty("--circle-size", `${style.size}px`);
+    }
+
+    function renderBars() {
+      const max = Math.max(1, ...Object.values(state.countsByYear));
+      els.bars.innerHTML = "";
+
+      state.years.forEach(year => {
+        const value = state.countsByYear[year] || 0;
+        const height = Math.max(2, (value / max) * 150);
+
+        const col = document.createElement("div");
+        col.className = "bar-col";
+        col.innerHTML = `
+          <div class="bar-value">${value}</div>
+          <div class="bar" style="height:${height}px"></div>
+          <div class="bar-year">${year}</div>
+        `;
+        els.bars.appendChild(col);
+      });
+    }
+
+    async function initHeroShader() {
+      const canvas = els.heroCanvas;
+      const gl = canvas.getContext("webgl", { premultipliedAlpha: false });
+
+      if (!gl) {
+        console.warn("WebGL not supported");
+        return;
+      }
+
+      const vertexSrc = `
+        attribute vec2 a_position;
+        attribute vec2 a_uv;
+        varying vec2 v_uv;
+
+        void main() {
+          v_uv = a_uv;
+          gl_Position = vec4(a_position, 0.0, 1.0);
+        }
+      `;
+
+      const fragmentSrc = `
+        precision mediump float;
+
+        uniform sampler2D u_from;
+        uniform sampler2D u_to;
+        uniform float progress;
+        uniform float power;
+        varying vec2 v_uv;
+
+        vec4 getFromColor(vec2 p) {
+          return texture2D(u_from, p);
+        }
+
+        vec4 getToColor(vec2 p) {
+          return texture2D(u_to, p);
+        }
+
+        vec4 transition(vec2 p) {
+          vec4 fTex = getFromColor(p);
+          vec4 tTex = getToColor(p);
+          float m = step(distance(fTex, tTex), progress);
+          return mix(
+            mix(fTex, tTex, m),
+            tTex,
+            pow(progress, power)
+          );
+        }
+
+        void main() {
+          gl_FragColor = transition(v_uv);
+        }
+      `;
+
+      const program = createProgram(gl, vertexSrc, fragmentSrc);
+
+      const positionLoc = gl.getAttribLocation(program, "a_position");
+      const uvLoc = gl.getAttribLocation(program, "a_uv");
+      const progressLoc = gl.getUniformLocation(program, "progress");
+      const powerLoc = gl.getUniformLocation(program, "power");
+      const fromLoc = gl.getUniformLocation(program, "u_from");
+      const toLoc = gl.getUniformLocation(program, "u_to");
+
+      const positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([
+          -1, -1,
+           1, -1,
+          -1,  1,
+          -1,  1,
+           1, -1,
+           1,  1
+        ]),
+        gl.STATIC_DRAW
+      );
+
+      const uvBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, uvBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([
+          0, 1,
+          1, 1,
+          0, 0,
+          0, 0,
+          1, 1,
+          1, 0
+        ]),
+        gl.STATIC_DRAW
+      );
+
+      const images = await Promise.all(CONFIG.heroImages.map(loadImage));
+      const textures = images.map(img => createTexture(gl, img));
+
+      state.hero = {
+        gl,
+        canvas,
+        program,
+        positionLoc,
+        uvLoc,
+        progressLoc,
+        powerLoc,
+        fromLoc,
+        toLoc,
+        positionBuffer,
+        uvBuffer,
+        textures,
+        progress: 0.5,
+        power: 5.0
+      };
+
+      resizeHeroCanvas();
+      window.addEventListener("resize", resizeHeroCanvas);
+
+      els.heroVisual.addEventListener("mousemove", onHeroMove);
+      els.heroVisual.addEventListener("mouseleave", () => {
+        state.hero.progress = 0.5;
+        drawHero();
+      });
+
+      drawHero();
+    }
+
+function onHeroMove(e) {
+  if (!state.hero) return;
+
+  const rect = els.heroVisual.getBoundingClientRect();
+
+  const padding = 0.1; // 10% on each side (tweak this)
+
+  let x = (e.clientX - rect.left) / rect.width;
+
+  // clamp to smaller active zone
+  x = (x - padding) / (1 - padding * 2);
+  x = Math.max(0, Math.min(1, x));
+
+  state.hero.progress = x;
+  drawHero();
+}
+
+    function resizeHeroCanvas() {
+      if (!state.hero) return;
+
+      const { canvas, gl } = state.hero;
+      const rect = els.heroVisual.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      drawHero();
+    }
+
+    function drawHero() {
+  if (!state.hero) return;
+
+  const {
+    gl, program, positionLoc, uvLoc, progressLoc, powerLoc,
+    fromLoc, toLoc, positionBuffer, uvBuffer, textures, progress, power
+  } = state.hero;
+
+  const maxIndex = textures.length - 1;
+  const scaledProgress = progress * maxIndex;
+  const fromIndex = Math.min(Math.floor(scaledProgress), maxIndex - 1);
+  const toIndex = fromIndex + 1;
+  const localProgress = scaledProgress - fromIndex;
+
+  gl.clearColor(0, 0, 0, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.useProgram(program);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.enableVertexAttribArray(positionLoc);
+  gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, uvBuffer);
+  gl.enableVertexAttribArray(uvLoc);
+  gl.vertexAttribPointer(uvLoc, 2, gl.FLOAT, false, 0, 0);
+
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, textures[fromIndex]);
+  gl.uniform1i(fromLoc, 0);
+
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, textures[toIndex]);
+  gl.uniform1i(toLoc, 1);
+
+  gl.uniform1f(progressLoc, localProgress);
+  gl.uniform1f(powerLoc, power);
+
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+}
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    function createTexture(gl, image) {
+      const texture = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+      gl.texImage2D(
+        gl.TEXTURE_2D,
+        0,
+        gl.RGBA,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        image
+      );
+
+      return texture;
+    }
+
+    function createShader(gl, type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error(gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        throw new Error("Shader compile failed");
+      }
+
+      return shader;
+    }
+
+    function createProgram(gl, vertexSrc, fragmentSrc) {
+      const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexSrc);
+      const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSrc);
+
+      const program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error(gl.getProgramInfoLog(program));
+        gl.deleteProgram(program);
+        throw new Error("Program link failed");
+      }
+
+      return program;
+    }
+  </script>
+</body>
+</html>
