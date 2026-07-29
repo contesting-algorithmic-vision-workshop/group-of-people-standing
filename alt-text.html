@@ -496,7 +496,107 @@ html, body {
         padding: 6px 0;
       }
     }
-  </style>
+  
+/* Final responsive layout fixes */
+:root {
+  --page-max: 1440px;
+  --page-gutter: clamp(16px, 3vw, 48px);
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+main {
+  width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max));
+  max-width: none;
+  margin-inline: auto;
+  padding-right: 0;
+}
+
+.site-footer {
+  width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max));
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 0;
+}
+
+.hero-sticky-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5000;
+  width: calc(100% + (2 * var(--page-gutter)));
+  margin-left: calc(-1 * var(--page-gutter));
+  margin-right: calc(-1 * var(--page-gutter));
+  padding: 14px var(--page-gutter) 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-link,
+.eyebrow {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --page-gutter: 10px;
+  }
+
+  main {
+    width: calc(100% - (2 * var(--page-gutter)));
+    margin-inline: auto;
+    padding-right: 0;
+  }
+
+  .hero-sticky-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5000;
+    width: calc(100% + (2 * var(--page-gutter)));
+    margin-left: calc(-1 * var(--page-gutter));
+    margin-right: calc(-1 * var(--page-gutter));
+    padding: 11px var(--page-gutter) 13px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .back-link,
+  .eyebrow {
+    font-size: clamp(8px, 2.7vw, 11px);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .eyebrow {
+    text-align: right;
+  }
+
+  .site-footer {
+    width: calc(100% - 20px);
+    margin-inline: auto;
+    padding-right: 0;
+  }
+
+  .footer-logos img {
+    width: auto;
+    max-width: min(180px, 65vw);
+  }
+
+  .footer-logos img[alt*="Goethe"] {
+    max-width: min(135px, 48vw);
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="grid-overlay"></div>
@@ -505,7 +605,7 @@ html, body {
     <section class="project-hero">
       <video
         class="project-hero-video"
-        src="/images/header-video-alt.mp4"
+        src="images/header-video-alt.mp4"
         autoplay
         muted
         loop
