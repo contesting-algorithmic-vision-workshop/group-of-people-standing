@@ -608,6 +608,288 @@ main {
   color: var(--bg);
 }
   </style>
+
+  <style id="responsive-layout-fixes">
+    :root {
+      --page-max: 1600px;
+      --page-gutter: clamp(16px, 3vw, 48px);
+    }
+
+    html {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    main {
+      width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max)) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .site-footer {
+      width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max)) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .hero-sticky-bar {
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 14px 0 16px !important;
+    }
+
+    .back-link,
+    .eyebrow {
+      min-width: 0;
+    }
+
+    .back-link {
+      flex: 1 1 auto;
+    }
+
+    .eyebrow {
+      flex: 0 1 auto;
+      text-align: right;
+    }
+
+    img, video, canvas, iframe {
+      max-width: 100%;
+    }
+
+    @media (min-width: 1800px) {
+      :root { --page-max: 1680px; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --page-max: 1840px; }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --page-gutter: 12px;
+      }
+
+      main,
+      .site-footer {
+        width: calc(100% - (2 * var(--page-gutter))) !important;
+      }
+
+      .hero-sticky-bar {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 11px 0 13px !important;
+      }
+
+      .back-link,
+      .eyebrow {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.08em !important;
+        white-space: nowrap;
+      }
+
+      .back-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .eyebrow {
+        max-width: 42%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .site-footer {
+        grid-template-columns: 1fr !important;
+        gap: 34px !important;
+      }
+
+      .footer-logos img,
+      .footer-logos .bezalel-logo {
+        width: min(100%, 320px) !important;
+        max-width: 100% !important;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .back-link,
+      .eyebrow {
+        font-size: 9px !important;
+        letter-spacing: 0.055em !important;
+      }
+
+      .eyebrow {
+        max-width: 38%;
+      }
+    }
+  </style>
+
+  <style id="landing-mobile-fixes">
+    header {
+      min-height: auto !important;
+      padding-top: clamp(42px, 7vw, 90px) !important;
+    }
+
+    .hero-grid {
+      align-items: start;
+    }
+
+    .hero-visual {
+      left: 50% !important;
+      margin-left: -50vw !important;
+      width: 100vw !important;
+      max-width: none !important;
+    }
+
+    @media (min-width: 1101px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr) !important;
+      }
+    }
+
+    @media (max-width: 760px) {
+      main {
+        padding-top: 18px !important;
+      }
+
+      header {
+        gap: 22px !important;
+        padding-top: 68px !important;
+      }
+
+      .hero-grid,
+      .section-head,
+      .cards {
+        grid-template-columns: minmax(0, 1fr) !important;
+      }
+
+      h1 {
+        font-size: clamp(44px, 15vw, 68px) !important;
+        max-width: 100% !important;
+        overflow-wrap: anywhere;
+      }
+
+      .panel {
+        padding: 0 !important;
+      }
+
+      .panel p {
+        font-size: 16px !important;
+      }
+
+      .hero-visual {
+        aspect-ratio: 4 / 5 !important;
+        min-height: 420px;
+      }
+
+      .histogram {
+        position: absolute !important;
+        top: 10px !important;
+        right: 12px !important;
+        width: 64px !important;
+        padding: 8px !important;
+      }
+
+      .bars {
+        min-height: 76px !important;
+        grid-template-columns: 1fr !important;
+        gap: 3px !important;
+      }
+
+      .bar-year,
+      .bar-value {
+        display: none !important;
+      }
+
+      .pulse {
+        position: absolute !important;
+        top: 10px !important;
+        bottom: auto !important;
+        left: 12px !important;
+        width: 50px !important;
+        height: 50px !important;
+      }
+
+      .pulse-label {
+        left: 64px !important;
+        bottom: 7px !important;
+        width: min(55vw, 220px) !important;
+      }
+
+      .cards {
+        gap: 12px !important;
+      }
+
+      .card {
+        padding: 10px !important;
+      }
+
+      .section {
+        padding-top: 56px !important;
+      }
+    }
+  </style>
+
+
+  <style id="large-screen-centering-fix">
+    :root {
+      --page-max: 1440px !important;
+      --page-gutter: clamp(16px, 3vw, 48px);
+    }
+
+    main {
+      width: calc(100% - (2 * var(--page-gutter))) !important;
+      max-width: var(--page-max) !important;
+      margin-inline: auto !important;
+      padding-inline: 0 !important;
+    }
+
+    body > .site-footer {
+      width: calc(100% - (2 * var(--page-gutter))) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    main > .site-footer {
+      width: 100% !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    @media (min-width: 1800px) {
+      :root { --page-max: 1440px !important; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --page-max: 1440px !important; }
+    }
+
+    @media (max-width: 760px) {
+      main,
+      body > .site-footer {
+        width: calc(100% - 24px) !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="grid-overlay"></div>
@@ -636,8 +918,8 @@ main {
         <div id="statspanel">
           <div class="panel">
             <p>
-              Workshop: Contesting Algorithmic Vision </br>
-              November/December 2025 </br></br>
+              Workshop: Contesting Algorithmic Vision <br>
+              November/December 2025 <br><br>
               A Group of People Standing explores how Instagram’s AI-generated alt-text classifies images, often flattening cultural, political, and emotional meaning into neutral machine-readable descriptions. The workshop connects research and communication design to question how algorithmic image interpretation shapes visibility, climate narratives, and our understanding of reality.
             </p>
             <a class="about-button" href="about.html">Read more</a>

@@ -499,6 +499,265 @@ html, body {
       }
     }
   </style>
+
+  <style id="responsive-layout-fixes">
+    :root {
+      --page-max: 1600px;
+      --page-gutter: clamp(16px, 3vw, 48px);
+    }
+
+    html {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    main {
+      width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max)) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .site-footer {
+      width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max)) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .hero-sticky-bar {
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 14px 0 16px !important;
+    }
+
+    .back-link,
+    .eyebrow {
+      min-width: 0;
+    }
+
+    .back-link {
+      flex: 1 1 auto;
+    }
+
+    .eyebrow {
+      flex: 0 1 auto;
+      text-align: right;
+    }
+
+    img, video, canvas, iframe {
+      max-width: 100%;
+    }
+
+    @media (min-width: 1800px) {
+      :root { --page-max: 1680px; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --page-max: 1840px; }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --page-gutter: 12px;
+      }
+
+      main,
+      .site-footer {
+        width: calc(100% - (2 * var(--page-gutter))) !important;
+      }
+
+      .hero-sticky-bar {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 11px 0 13px !important;
+      }
+
+      .back-link,
+      .eyebrow {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.08em !important;
+        white-space: nowrap;
+      }
+
+      .back-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .eyebrow {
+        max-width: 42%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .site-footer {
+        grid-template-columns: 1fr !important;
+        gap: 34px !important;
+      }
+
+      .footer-logos img,
+      .footer-logos .bezalel-logo {
+        width: min(100%, 320px) !important;
+        max-width: 100% !important;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .back-link,
+      .eyebrow {
+        font-size: 9px !important;
+        letter-spacing: 0.055em !important;
+      }
+
+      .eyebrow {
+        max-width: 38%;
+      }
+    }
+  </style>
+
+  <style id="project-page-fixes">
+    .project-hero {
+      left: 50% !important;
+      margin-left: -50vw !important;
+      width: 100vw !important;
+      max-width: none !important;
+    }
+
+    .project-text {
+      grid-template-columns: minmax(0, 900px) !important;
+    }
+
+    @media (max-width: 760px) {
+      .project-hero {
+        height: min(78svh, 720px) !important;
+        min-height: 460px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 14vw, 66px) !important;
+        max-width: 100% !important;
+        margin-top: 26px !important;
+      }
+
+      .project-meta,
+      .section-head {
+        grid-template-columns: 1fr !important;
+      }
+
+      .project-text p {
+        font-size: 18px !important;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+
+      .image-card.wide,
+      .image-card.medium,
+      .image-card.tall,
+      .image-card.small {
+        grid-column: auto !important;
+        aspect-ratio: auto !important;
+      }
+
+      .image-card img {
+        height: auto !important;
+      }
+    }
+  </style>
+
+
+  <style id="large-screen-centering-fix">
+    :root {
+      --page-max: 1440px !important;
+      --page-gutter: clamp(16px, 3vw, 48px);
+    }
+
+    main {
+      width: calc(100% - (2 * var(--page-gutter))) !important;
+      max-width: var(--page-max) !important;
+      margin-inline: auto !important;
+      padding-inline: 0 !important;
+    }
+
+    body > .site-footer {
+      width: calc(100% - (2 * var(--page-gutter))) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    main > .site-footer {
+      width: 100% !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    @media (min-width: 1800px) {
+      :root { --page-max: 1440px !important; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --page-max: 1440px !important; }
+    }
+
+    @media (max-width: 760px) {
+      main,
+      body > .site-footer {
+        width: calc(100% - 24px) !important;
+      }
+    }
+  </style>
+
+  <style id="sticky-bar-restoration">
+    html, body {
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+    }
+
+    main {
+      overflow: visible !important;
+    }
+
+    .hero-sticky-bar {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 10000 !important;
+      align-self: start;
+      width: 100% !important;
+      background: rgba(5, 5, 5, 0.94) !important;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 760px) {
+      .hero-sticky-bar {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="grid-overlay"></div>

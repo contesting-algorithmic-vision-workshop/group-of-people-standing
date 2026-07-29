@@ -215,6 +215,238 @@
       }
     }
   </style>
+
+  <style id="responsive-layout-fixes">
+    :root {
+      --page-max: 1600px;
+      --page-gutter: clamp(16px, 3vw, 48px);
+    }
+
+    html {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    main {
+      width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max)) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .site-footer {
+      width: min(calc(100% - (2 * var(--page-gutter))), var(--page-max)) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .hero-sticky-bar {
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 14px 0 16px !important;
+    }
+
+    .back-link,
+    .eyebrow {
+      min-width: 0;
+    }
+
+    .back-link {
+      flex: 1 1 auto;
+    }
+
+    .eyebrow {
+      flex: 0 1 auto;
+      text-align: right;
+    }
+
+    img, video, canvas, iframe {
+      max-width: 100%;
+    }
+
+    @media (min-width: 1800px) {
+      :root { --page-max: 1680px; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --page-max: 1840px; }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --page-gutter: 12px;
+      }
+
+      main,
+      .site-footer {
+        width: calc(100% - (2 * var(--page-gutter))) !important;
+      }
+
+      .hero-sticky-bar {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 11px 0 13px !important;
+      }
+
+      .back-link,
+      .eyebrow {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.08em !important;
+        white-space: nowrap;
+      }
+
+      .back-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .eyebrow {
+        max-width: 42%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .site-footer {
+        grid-template-columns: 1fr !important;
+        gap: 34px !important;
+      }
+
+      .footer-logos img,
+      .footer-logos .bezalel-logo {
+        width: min(100%, 320px) !important;
+        max-width: 100% !important;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .back-link,
+      .eyebrow {
+        font-size: 9px !important;
+        letter-spacing: 0.055em !important;
+      }
+
+      .eyebrow {
+        max-width: 38%;
+      }
+    }
+  </style>
+
+  <style id="about-page-fixes">
+    @media (max-width: 900px) {
+      .section,
+      .people-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        margin: 46px 0 !important;
+        font-size: clamp(48px, 18vw, 74px) !important;
+      }
+
+      .section {
+        gap: 18px !important;
+        padding: 38px 0 !important;
+      }
+
+      .text {
+        font-size: 18px !important;
+      }
+    }
+  </style>
+
+
+  <style id="large-screen-centering-fix">
+    :root {
+      --page-max: 1440px !important;
+      --page-gutter: clamp(16px, 3vw, 48px);
+    }
+
+    main {
+      width: calc(100% - (2 * var(--page-gutter))) !important;
+      max-width: var(--page-max) !important;
+      margin-inline: auto !important;
+      padding-inline: 0 !important;
+    }
+
+    body > .site-footer {
+      width: calc(100% - (2 * var(--page-gutter))) !important;
+      max-width: var(--page-max) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    main > .site-footer {
+      width: 100% !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    @media (min-width: 1800px) {
+      :root { --page-max: 1440px !important; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --page-max: 1440px !important; }
+    }
+
+    @media (max-width: 760px) {
+      main,
+      body > .site-footer {
+        width: calc(100% - 24px) !important;
+      }
+    }
+  </style>
+
+  <style id="sticky-bar-restoration">
+    html, body {
+      overflow-x: clip !important;
+      overflow-y: visible !important;
+    }
+
+    main {
+      overflow: visible !important;
+    }
+
+    .hero-sticky-bar {
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 10000 !important;
+      align-self: start;
+      width: 100% !important;
+      background: rgba(5, 5, 5, 0.94) !important;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 760px) {
+      .hero-sticky-bar {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -229,7 +461,7 @@
     <section class="section">
       <div class="label">Workshop</div>
       <div class="text">
-        <h3>[A Group of People Standing] </br>Contesting Algorithmic Vision </h3> </br> 
+        <h3>[A Group of People Standing] <br>Contesting Algorithmic Vision </h3> <br> 
 A group of people standing is a generic alt-text description on Instagram, based on AI, designed for accessibility. The starting point of the workshop is that today image circulation depends less on human emotions and meanings, and more on machine vision mechanisms that tag, classify and rank visual content. However, describing what appears in an image is an interpretive act that is inherently unstable and often contested. Research by Prof. Anat Ben-David and Noa Turgeman found that Instagram's algorithmic alt-text consistently flattens cultural, social and political meanings for optimization and safety, avoiding controversy and maintaining neutrality.
 What are the social and political implications of algorithmic image interpretation? How do these invisible mechanisms shape collective imagination and understanding of political and climate crises? Beyond that - what are the broader implications of these mechanisms in the development of artificial intelligence, when algorithmic alt-text is fed into language models and in a feedback process reshapes our knowledge and interpretation of reality?
 This workshop seeks to create a synthesis between theoretical research and communication design, establishing visual knowledge design as methodology for understanding invisible mechanisms, developing visual critique, and promoting digital literacy. It is organized by the M.Des program in Visual Communication, Bezalel Academy of Art and Design Jerusalem and held in collaboration with the Goethe Institute's residency program.
@@ -240,12 +472,12 @@ This workshop seeks to create a synthesis between theoretical research and commu
       <div class="label">Data</div>
       <div class="people-grid">
         <div class="person">
-          <p>Data Source: Noa Turgeman and Anat Ben-David</br>
+          <p>Data Source: Noa Turgeman and Anat Ben-David<br>
 This research was supported by the German-Israel Science Foundation, Grant No. I-1554-500.15/2021</p>
-          <p></br>
+          <p><br>
             Instagram corpus - hundreds of nature/climate images examining visibility patterns and machine vision descriptions. 
-<br></br>Climate corpus - 190,000 images from news sites in 30 countries (2010-2022) tracking visual framing evolution
-</br></br>  Read more here: 
+<br><br>Climate corpus - 190,000 images from news sites in 30 countries (2010-2022) tracking visual framing evolution
+<br><br>  Read more here: 
 Ben-David, A., Amram, A., & Turgeman, N. (2025). Iconography in flux: A transnational exploration of the evolution of climate news imagery through the Wayback Machine. In The Routledge companion to transnational web archive studies (pp. 29-51). Routledge.
           </p>
         </div>
